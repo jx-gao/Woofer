@@ -22,35 +22,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        OkHttpClient client = new OkHttpClient();
 
-        RequestBody formBody = new FormBody.Builder()
-                .add("username", "ULTRAWHIZKID")
-                .add("password", "GGEZ")
-                .build();
-        Request request = new Request.Builder()
-                .url("https://lamp.ms.wits.ac.za/home/s1601812/login.php")
-                .post(formBody)
-                .build();
-
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-            }
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if (response.isSuccessful()) {
-                    final String myResponse = response.body().string();
-                    MainActivity.this.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            TextView myTextView = (TextView) findViewById(R.id.textViewUsername);
-                            myTextView.setText(myResponse);
-                        }
-                    });
-                }
-            }
-        });
     }
 }
