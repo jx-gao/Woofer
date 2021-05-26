@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.TextView;
 
 public class FriendList extends AppCompatActivity {
 
@@ -14,6 +15,7 @@ public class FriendList extends AppCompatActivity {
         System.out.println();
         Intent intent = getIntent();
         String username = intent.getStringExtra("username");
-        System.out.println(username);
+        TextView output = (TextView) findViewById(R.id.textViewOutput);
+        output.setText(username);
     }
 }
