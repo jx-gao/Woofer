@@ -25,7 +25,8 @@ public class MainActivity extends AppCompatActivity {
         OkHttpClient client = new OkHttpClient();
 
         RequestBody formBody = new FormBody.Builder()
-                .add("username", "BMW")
+                .add("username", "ULTRAWHIZKID")
+                .add("password", "GGEZ")
                 .build();
         Request request = new Request.Builder()
                 .url("https://lamp.ms.wits.ac.za/home/s1601812/login.php")
