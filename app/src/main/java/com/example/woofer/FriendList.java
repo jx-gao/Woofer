@@ -7,6 +7,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 
 import okhttp3.Call;
@@ -29,9 +33,10 @@ public class FriendList extends AppCompatActivity {
         username = intent.getStringExtra("username");
         TextView output = (TextView) findViewById(R.id.textViewOutput);
         output.setText(username);
+        doGetFriends();
     }
 
-    public void doGetFriends(View v){
+    public void doGetFriends(){
         TextView output = (TextView) findViewById(R.id.textViewOutput);
 
         OkHttpClient client = new OkHttpClient();
@@ -40,7 +45,7 @@ public class FriendList extends AppCompatActivity {
                 .add("username", username)
                 .build();
         Request request = new Request.Builder()
-                .url("https://lamp.ms.wits.ac.za/home/s1601812/login.php")
+                .url("https://lamp.ms.wits.ac.za/home/s1601812/friendlist.php")
                 .post(formBody)
                 .build();
 
@@ -59,10 +64,18 @@ public class FriendList extends AppCompatActivity {
                             if(myResponse.equals("[]")){
                                 output.setText("Failed");
                             }else{
-//                                Intent intent = new Intent(getApplicationContext(), FriendList.class);
-//                                intent.putExtra("username", inputUsername.getText().toString());
-//                                startActivity(intent);
-                                finish();
+                                try {
+                                    String out="";
+                                    JSONArray jr = new JSONArray(myResponse);
+                                    for (int i = 0; i < jr.length(); i++) {
+                                        JSONObject jb = (JSONObject) jr.get(i);
+                                        String id = jb.getString("Username");
+                                        out+=id+"\n";
+                                    }
+                                    output.setText(out);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         }
                     });
