@@ -2,14 +2,20 @@ package com.example.woofer;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.google.android.material.textfield.TextInputEditText;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 
@@ -31,13 +37,10 @@ public class FriendList extends AppCompatActivity {
         System.out.println();
         Intent intent = getIntent();
         username = intent.getStringExtra("username");
-        TextView output = (TextView) findViewById(R.id.textViewOutput);
-        output.setText(username);
         doGetFriends();
     }
 
     public void doGetFriends(){
-        TextView output = (TextView) findViewById(R.id.textViewOutput);
 
         OkHttpClient client = new OkHttpClient();
 
@@ -62,25 +65,39 @@ public class FriendList extends AppCompatActivity {
                         @Override
                         public void run() {
                             if(myResponse.equals("[]")){
-                                output.setText("Failed");
+                                displayFail();
                             }else{
-                                try {
-                                    String out="";
-                                    JSONArray jr = new JSONArray(myResponse);
-                                    for (int i = 0; i < jr.length(); i++) {
-                                        JSONObject jb = (JSONObject) jr.get(i);
-                                        String id = jb.getString("Username");
-                                        out+=id+"\n";
-                                    }
-                                    output.setText(out);
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
+                                displayFriends(myResponse);
                             }
                         }
                     });
                 }
             }
         });
+    }
+
+    private void displayFriends(String myResponse){
+        LinearLayout layout = (LinearLayout)findViewById(R.id.mainView);
+        try {
+            String out="";
+            JSONArray jr = new JSONArray(myResponse);
+
+            for (int i = 0; i < jr.length(); i++) {
+                JSONObject jb = (JSONObject) jr.get(i);
+                String id = jb.getString("Username");
+                Button friend = new Button(this);
+
+                friend.setText(id);
+                layout.addView(friend);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+    private void displayFail(){
+        LinearLayout layout = (LinearLayout)findViewById(R.id.mainView);
+        TextView output = new TextView(this);
+        output.setText("You have no friends lmao");
+        layout.addView(output);
     }
 }
