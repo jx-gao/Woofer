@@ -42,36 +42,11 @@ public class FriendList extends AppCompatActivity {
 
     public void doGetFriends(){
 
-        OkHttpClient client = new OkHttpClient();
-
-        RequestBody formBody = new FormBody.Builder()
-                .add("username", username)
-                .build();
-        Request request = new Request.Builder()
-                .url("https://lamp.ms.wits.ac.za/home/s1601812/friendlist.php")
-                .post(formBody)
-                .build();
-
-        client.newCall(request).enqueue(new Callback() {
+        PHPRequest request = new PHPRequest();
+        request.doRequest(FriendList.this, "friendlist", username, new RequestHandler() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-            }
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if (response.isSuccessful()) {
-                    final String myResponse = response.body().string();
-                    FriendList.this.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            if(myResponse.equals("[]")){
-                                displayFail();
-                            }else{
-                                displayFriends(myResponse);
-                            }
-                        }
-                    });
-                }
+            public void proccessResponse(String response) {
+                processJSON(response);
             }
         });
     }
