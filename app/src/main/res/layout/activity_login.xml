@@ -7,11 +7,11 @@
     tools:context=".Login">
 
 
-    <TextView
+    <EditText
         android:id="@+id/textViewUsername"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="ULTRAWHIZKID"
+        android:hint="Username"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -19,17 +19,19 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.292" />
 
-    <TextView
+    <EditText
         android:id="@+id/textViewPassword"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="GGEZ"
+        android:hint="Password"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewUsername"
-        app:layout_constraintVertical_bias="0.072" />
+        app:layout_constraintVertical_bias="0.072"
+        android:inputType="textPassword" />
+
 
     <Button
         android:id="@+id/buttonL"
