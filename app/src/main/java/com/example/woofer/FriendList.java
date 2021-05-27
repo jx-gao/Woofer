@@ -76,6 +76,16 @@ public class FriendList extends AppCompatActivity {
         });
     }
 
+
+    private void processJSON(String json){
+        if(json.equals("[]")){
+            displayFail();
+        }else{
+            displayFriends(json);
+        }
+
+    }
+
     private void displayFriends(String myResponse){
         LinearLayout layout = (LinearLayout)findViewById(R.id.mainView);
         try {
