@@ -4,8 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -27,44 +33,34 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
     }
 
+    public void processJSON(String json) {
+        inputPassword = (TextView) findViewById(R.id.textViewPassword);
+        try {
+            JSONArray ja = new JSONArray(json);
+            if(ja.length() == 0){
+                Toast.makeText(Login.this, "Username incorrect", Toast.LENGTH_LONG).show();
+            }else{
+                inputPassword.getText().toString();
+                JSONObject jo = ja.getJSONObject(0);
+                if(jo.getString("Password").equals(inputPassword.getText().toString())){
+                    Intent intent = new Intent(getApplicationContext(), FriendList.class);
+                    intent.putExtra("username", inputUsername.getText().toString());
+                    startActivity(intent);
+                    finish();
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void doLogin(View view) {
         inputUsername = (TextView) findViewById(R.id.textViewUsername);
-        inputPassword = (TextView) findViewById(R.id.textViewPassword);
-
-        OkHttpClient client = new OkHttpClient();
-
-        RequestBody formBody = new FormBody.Builder()
-                .add("username", inputUsername.getText().toString())
-                .add("password", inputPassword.getText().toString())
-                .build();
-        Request request = new Request.Builder()
-                .url("https://lamp.ms.wits.ac.za/home/s1601812/login.php")
-                .post(formBody)
-                .build();
-
-        client.newCall(request).enqueue(new Callback() {
+        PHPRequest request = new PHPRequest();
+        request.doRequest(Login.this, "login", inputUsername.getText().toString(), new RequestHandler() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-            }
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if (response.isSuccessful()) {
-                    final String myResponse = response.body().string();
-                    Login.this.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            if(myResponse.equals("[]")){
-                                inputUsername.setText("Failed");
-                            }else{
-                                Intent intent = new Intent(getApplicationContext(), FriendList.class);
-                                intent.putExtra("username", inputUsername.getText().toString());
-                                startActivity(intent);
-                                finish();
-                            }
-                        }
-                    });
-                }
+            public void proccessResponse(String response) {
+                processJSON(response);
             }
         });
     }
