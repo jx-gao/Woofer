@@ -7,7 +7,7 @@
     tools:context=".SignUp">
 
     <TextView
-        android:id="@+id/textViewSignup"
+        android:id="@+id/textViewSignupTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="128dp"
@@ -27,10 +27,10 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewSignup" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewSignupTitle" />
 
     <EditText
-        android:id="@+id/editTextTextSignupName"
+        android:id="@+id/editTextSignupName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
@@ -43,7 +43,7 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextSignupUsername" />
 
     <EditText
-        android:id="@+id/editTextTextSignupPassword"
+        android:id="@+id/editTextSignupPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
@@ -53,7 +53,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextSignupName" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextSignupName" />
 
     <Button
         android:id="@+id/buttonSignup"
@@ -64,7 +64,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextSignupPassword"
+        app:layout_constraintTop_toBottomOf="@+id/editTextSignupPassword"
         app:layout_constraintVertical_bias="0.0"
         android:onClick="doSignup"/>
 

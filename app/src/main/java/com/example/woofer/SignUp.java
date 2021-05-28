@@ -2,20 +2,15 @@ package com.example.woofer;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class SignUp extends AppCompatActivity {
 
@@ -42,8 +37,8 @@ public class SignUp extends AppCompatActivity {
 
     public void createUserJSON(){
         editTextUsername = (EditText) findViewById(R.id.editTextSignupUsername);
-        editTextName = (EditText) findViewById(R.id.editTextTextSignupName);
-        editTextPassword = (EditText) findViewById(R.id.editTextTextSignupPassword);
+        editTextName = (EditText) findViewById(R.id.editTextSignupName);
+        editTextPassword = (EditText) findViewById(R.id.editTextSignupPassword);
 
         ArrayList<String> keys = new ArrayList<>();
         keys.add("username");

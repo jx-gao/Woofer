@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,7 +27,7 @@ import okhttp3.Response;
 
 public class Login extends AppCompatActivity {
 
-    TextView inputUsername, inputPassword;
+    EditText editTextUsername, editTextPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,19 +36,20 @@ public class Login extends AppCompatActivity {
     }
 
     public void processJSON(String json) {
-        inputPassword = (TextView) findViewById(R.id.textViewPassword);
+        editTextPassword = (EditText) findViewById(R.id.editTextLoginPassword);
         try {
             JSONArray ja = new JSONArray(json);
             if(ja.length() == 0){
-                Toast.makeText(Login.this, "Username incorrect", Toast.LENGTH_LONG).show();
+                Toast.makeText(Login.this, "Username or password incorrect", Toast.LENGTH_LONG).show();
             }else{
-                inputPassword.getText().toString();
                 JSONObject jo = ja.getJSONObject(0);
-                if(jo.getString("Password").equals(inputPassword.getText().toString())){
+                if(jo.getString("Password").equals(editTextPassword.getText().toString())){
                     Intent intent = new Intent(getApplicationContext(), FriendList.class);
-                    intent.putExtra("username", inputUsername.getText().toString());
+                    intent.putExtra("username", editTextUsername.getText().toString());
                     startActivity(intent);
                     finish();
+                }else{
+                    Toast.makeText(Login.this, "Username or password incorrect", Toast.LENGTH_LONG).show();
                 }
             }
         } catch (JSONException e) {
@@ -55,9 +58,9 @@ public class Login extends AppCompatActivity {
     }
 
     public void doLogin(View view) {
-        inputUsername = (TextView) findViewById(R.id.textViewUsername);
+        editTextUsername = (EditText) findViewById(R.id.editTextLoginUsername);
         PHPRequest request = new PHPRequest();
-        request.doRequest(Login.this, "login", inputUsername.getText().toString(), new RequestHandler() {
+        request.doRequest(Login.this, "login", editTextUsername.getText().toString(), new RequestHandler() {
             @Override
             public void proccessResponse(String response) {
                 processJSON(response);
