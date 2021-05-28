@@ -64,4 +64,9 @@ public class Login extends AppCompatActivity {
             }
         });
     }
+
+    public void doGoToSignup(View view) {
+        Intent intent = new Intent(getApplicationContext(), SignUp.class);
+        startActivity(intent);
+    }
 }
