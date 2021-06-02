@@ -2,6 +2,7 @@ package com.example.woofer;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentValues;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -31,18 +32,13 @@ public class SignUp extends AppCompatActivity {
     }
 
     public void createNewUser(){
-        ArrayList<String> keys = new ArrayList<>();
-        keys.add("username");
-        keys.add("name");
-        keys.add("password");
-
-        ArrayList<String> values = new ArrayList<>();
-        values.add(editTextUsername.getText().toString());
-        values.add(editTextName.getText().toString());
-        values.add(editTextPassword.getText().toString());
+        ContentValues cv = new ContentValues();
+        cv.put("username", editTextUsername.getText().toString());
+        cv.put("name", editTextName.getText().toString());
+        cv.put("password", editTextPassword.getText().toString());
 
         PHPRequest request = new PHPRequest();
-        request.doInsertRequest(SignUp.this, "signup", keys, values, new RequestHandler() {
+        request.doRequest(SignUp.this, "signup", cv, new RequestHandler() {
             @Override
             public void proccessResponse(String response) {
 //                System.out.println(response);
@@ -67,8 +63,10 @@ public class SignUp extends AppCompatActivity {
             Toast.makeText(SignUp.this, "One or more fields are empty", Toast.LENGTH_LONG).show();
             return;
         }
+        ContentValues cv = new ContentValues();
+        cv.put("username", editTextUsername.getText().toString());
         PHPRequest request = new PHPRequest();
-        request.doRequest(SignUp.this, "login", editTextUsername.getText().toString(), new RequestHandler() {
+        request.doRequest(SignUp.this, "login", cv, new RequestHandler() {
             @Override
             public void proccessResponse(String response) {
                 checkIfUserExists(response);

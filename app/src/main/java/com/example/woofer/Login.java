@@ -2,6 +2,7 @@ package com.example.woofer;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -59,12 +60,14 @@ public class Login extends AppCompatActivity {
     public void doLogin(View view) {
         editTextUsername = (EditText) findViewById(R.id.editTextLoginUsername);
         editTextPassword = (EditText) findViewById(R.id.editTextLoginPassword);
+        ContentValues cv = new ContentValues();
+        cv.put("username", editTextUsername.getText().toString());
         if(checkFieldsEmpty()){
             Toast.makeText(Login.this, "Username or password needs to be entered", Toast.LENGTH_LONG).show();
             return;
         }
         PHPRequest request = new PHPRequest();
-        request.doRequest(Login.this, "login", editTextUsername.getText().toString(), new RequestHandler() {
+        request.doRequest(Login.this, "login", cv, new RequestHandler() {
             @Override
             public void proccessResponse(String response) {
                 processJSON(response);

@@ -3,6 +3,7 @@ package com.example.woofer;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -41,9 +42,10 @@ public class FriendList extends AppCompatActivity {
     }
 
     public void doGetFriends(){
-
+        ContentValues cv = new ContentValues();
+        cv.put("username", username);
         PHPRequest request = new PHPRequest();
-        request.doRequest(FriendList.this, "friendlist", username, new RequestHandler() {
+        request.doRequest(FriendList.this, "friendlist", cv, new RequestHandler() {
             @Override
             public void proccessResponse(String response) {
                 processJSON(response);
