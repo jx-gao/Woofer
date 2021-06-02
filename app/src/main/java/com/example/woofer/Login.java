@@ -27,7 +27,7 @@ import okhttp3.Response;
 
 public class Login extends AppCompatActivity {
 
-    EditText editTextUsername, editTextPassword;
+    private EditText editTextUsername, editTextPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,6 @@ public class Login extends AppCompatActivity {
     }
 
     public void processJSON(String json) {
-        editTextPassword = (EditText) findViewById(R.id.editTextLoginPassword);
         try {
             JSONArray ja = new JSONArray(json);
             if(ja.length() == 0){
@@ -59,6 +58,11 @@ public class Login extends AppCompatActivity {
 
     public void doLogin(View view) {
         editTextUsername = (EditText) findViewById(R.id.editTextLoginUsername);
+        editTextPassword = (EditText) findViewById(R.id.editTextLoginPassword);
+        if(checkFieldsEmpty()){
+            Toast.makeText(Login.this, "Username or password needs to be entered", Toast.LENGTH_LONG).show();
+            return;
+        }
         PHPRequest request = new PHPRequest();
         request.doRequest(Login.this, "login", editTextUsername.getText().toString(), new RequestHandler() {
             @Override
@@ -66,6 +70,13 @@ public class Login extends AppCompatActivity {
                 processJSON(response);
             }
         });
+    }
+
+    public boolean checkFieldsEmpty(){
+        if(editTextUsername.getText().toString().equals("") || editTextPassword.getText().toString().equals("")){
+            return true;
+        }
+        return false;
     }
 
     public void doGoToSignup(View view) {

@@ -14,32 +14,23 @@ import java.util.ArrayList;
 
 public class SignUp extends AppCompatActivity {
 
-    EditText editTextUsername, editTextName, editTextPassword;
-    boolean doesUserExist = true;
+    private EditText editTextUsername, editTextName, editTextPassword;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
     }
 
-    public void createNewUser(String json) {
-        try {
-            JSONArray ja = new JSONArray(json);
-            if(ja.length() == 0){
-                createUserJSON();
-            }else{
-                Toast.makeText(SignUp.this, "Username already taken!", Toast.LENGTH_LONG).show();
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
+    public void checkIfUserExists(String json) {
+        if(json.equals("[]")){
+            createNewUser();
+            return;
         }
+        Toast.makeText(SignUp.this, "Username already taken", Toast.LENGTH_LONG).show();
     }
 
-    public void createUserJSON(){
-        editTextUsername = (EditText) findViewById(R.id.editTextSignupUsername);
-        editTextName = (EditText) findViewById(R.id.editTextSignupName);
-        editTextPassword = (EditText) findViewById(R.id.editTextSignupPassword);
-
+    public void createNewUser(){
         ArrayList<String> keys = new ArrayList<>();
         keys.add("username");
         keys.add("name");
@@ -61,13 +52,26 @@ public class SignUp extends AppCompatActivity {
         finish();
     }
 
+    public boolean checkFieldsEmpty(){
+        if(editTextUsername.getText().toString().equals("") || editTextPassword.getText().toString().equals("") || editTextName.getText().toString().equals("")){
+            return true;
+        }
+        return false;
+    }
+
     public void doSignup(View view) {
         editTextUsername = (EditText) findViewById(R.id.editTextSignupUsername);
+        editTextName = (EditText) findViewById(R.id.editTextSignupName);
+        editTextPassword = (EditText) findViewById(R.id.editTextSignupPassword);
+        if(checkFieldsEmpty()){
+            Toast.makeText(SignUp.this, "One or more fields are empty", Toast.LENGTH_LONG).show();
+            return;
+        }
         PHPRequest request = new PHPRequest();
         request.doRequest(SignUp.this, "login", editTextUsername.getText().toString(), new RequestHandler() {
             @Override
             public void proccessResponse(String response) {
-                createNewUser(response);
+                checkIfUserExists(response);
             }
         });
     }
