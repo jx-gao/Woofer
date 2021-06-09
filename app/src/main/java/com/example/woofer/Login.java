@@ -36,6 +36,13 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
     }
 
+    public boolean checkFieldsEmpty(){
+        if(editTextUsername.getText().toString().equals("") || editTextPassword.getText().toString().equals("")){
+            return true;
+        }
+        return false;
+    }
+
     public void processJSON(String json) {
         try {
             JSONArray ja = new JSONArray(json);
@@ -57,12 +64,10 @@ public class Login extends AppCompatActivity {
         }
     }
 
-    public void doLogin(View view) {
-        editTextUsername = (EditText) findViewById(R.id.editTextLoginUsername);
-        editTextPassword = (EditText) findViewById(R.id.editTextLoginPassword);
+    public void login() {
         ContentValues cv = new ContentValues();
         cv.put("username", editTextUsername.getText().toString());
-        if(checkFieldsEmpty()){
+        if (checkFieldsEmpty()) {
             Toast.makeText(Login.this, "Username or password needs to be entered", Toast.LENGTH_LONG).show();
             return;
         }
@@ -75,15 +80,15 @@ public class Login extends AppCompatActivity {
         });
     }
 
-    public boolean checkFieldsEmpty(){
-        if(editTextUsername.getText().toString().equals("") || editTextPassword.getText().toString().equals("")){
-            return true;
-        }
-        return false;
-    }
-
     public void doGoToSignup(View view) {
         Intent intent = new Intent(getApplicationContext(), SignUp.class);
         startActivity(intent);
+    }
+
+    public void doLogin(View view) {
+        editTextUsername = (EditText) findViewById(R.id.editTextLoginUsername);
+        editTextPassword = (EditText) findViewById(R.id.editTextLoginPassword);
+
+        login();
     }
 }

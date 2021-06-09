@@ -46,18 +46,8 @@ public class FriendList extends AppCompatActivity {
         addFriendButton();
 
         doGetFriends();
-
-//        friendClickListener();
     }
 
-//    private void friendClickListener() {
-//        friend.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(FriendList.this, "YES", Toast.LENGTH_LONG).show();
-//            }
-//        });
-//    }
 
     public void doGetFriends(){
         ContentValues cv = new ContentValues();
