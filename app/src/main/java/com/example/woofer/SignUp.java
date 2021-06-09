@@ -23,14 +23,6 @@ public class SignUp extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
     }
 
-    public void checkIfUserExists(String json) {
-        if(json.equals("[]")){
-            createNewUser();
-            return;
-        }
-        Toast.makeText(SignUp.this, "Username already taken", Toast.LENGTH_LONG).show();
-    }
-
     public void createNewUser(){
         ContentValues cv = new ContentValues();
         cv.put("username", editTextUsername.getText().toString());
@@ -41,37 +33,42 @@ public class SignUp extends AppCompatActivity {
         request.doRequest(SignUp.this, "signup", cv, new RequestHandler() {
             @Override
             public void proccessResponse(String response) {
-//                System.out.println(response);
+                proccessOutcome(response);
             }
         });
-        Toast.makeText(SignUp.this, "Successfully created account!", Toast.LENGTH_LONG).show();
-        finish();
     }
 
     public boolean checkFieldsEmpty(){
-        if(editTextUsername.getText().toString().equals("") || editTextPassword.getText().toString().equals("") || editTextName.getText().toString().equals("")){
-            return true;
-        }
+        if(editTextUsername.getText().toString().equals("")
+                || editTextPassword.getText().toString().equals("")
+                || editTextName.getText().toString().equals("")){return true;}
         return false;
+    }
+
+    public void proccessOutcome(String response){
+        if(response.equals("New record created successfully")){
+            Toast.makeText(SignUp.this, "Successfully created account!", Toast.LENGTH_LONG).show();
+            finish();
+            return;
+        }else if(response.equals("User already exists")){
+            Toast.makeText(SignUp.this, "Username already taken", Toast.LENGTH_LONG).show();
+            return;
+        }
+        //when error occurs in signup php
+        Toast.makeText(SignUp.this, "Error trying to create user, try again later", Toast.LENGTH_LONG).show();
     }
 
     public void doSignup(View view) {
         editTextUsername = (EditText) findViewById(R.id.editTextSignupUsername);
         editTextName = (EditText) findViewById(R.id.editTextSignupName);
         editTextPassword = (EditText) findViewById(R.id.editTextSignupPassword);
+
         if(checkFieldsEmpty()){
             Toast.makeText(SignUp.this, "One or more fields are empty", Toast.LENGTH_LONG).show();
             return;
         }
-        ContentValues cv = new ContentValues();
-        cv.put("username", editTextUsername.getText().toString());
-        PHPRequest request = new PHPRequest();
-        request.doRequest(SignUp.this, "login", cv, new RequestHandler() {
-            @Override
-            public void proccessResponse(String response) {
-                checkIfUserExists(response);
-            }
-        });
+
+        createNewUser();
     }
 
     public void doGoToLogin(View view) {

@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -31,15 +32,22 @@ import okhttp3.Response;
 public class FriendList extends AppCompatActivity {
 
     String username;
+    LinearLayout layout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend_list);
-        System.out.println();
+        layout = (LinearLayout)findViewById(R.id.mainView);
+
         Intent intent = getIntent();
         username = intent.getStringExtra("username");
+
+        addFriendButton();
+
         doGetFriends();
     }
+
 
     public void doGetFriends(){
         ContentValues cv = new ContentValues();
@@ -64,7 +72,7 @@ public class FriendList extends AppCompatActivity {
     }
 
     private void displayFriends(String myResponse){
-        LinearLayout layout = (LinearLayout)findViewById(R.id.mainView);
+
         try {
             String out="";
             JSONArray jr = new JSONArray(myResponse);
@@ -87,4 +95,20 @@ public class FriendList extends AppCompatActivity {
         output.setText("You have no friends lmao");
         layout.addView(output);
     }
+
+    private void addFriendButton(){
+        Button addFriends = new Button(this);
+        addFriends.setText("Add friend");
+        layout.addView(addFriends);
+
+        addFriends.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), AddFriend.class);
+                intent.putExtra("username", username);
+                startActivity(intent);
+            }
+        });
+    }
+
 }
