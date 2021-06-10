@@ -51,7 +51,7 @@ public class Login extends AppCompatActivity {
             }else{
                 JSONObject jo = ja.getJSONObject(0);
                 if(jo.getString("Password").equals(editTextPassword.getText().toString())){
-                    Intent intent = new Intent(getApplicationContext(), FriendList.class);
+                    Intent intent = new Intent(getApplicationContext(), Status.class);
                     intent.putExtra("username", editTextUsername.getText().toString());
                     startActivity(intent);
                     finish();

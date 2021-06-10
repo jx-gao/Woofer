@@ -50,12 +50,12 @@ public class Status extends AppCompatActivity {
             for (int i = 0; i < jr.length(); i++) {
                 JSONObject jb = (JSONObject) jr.get(i);
                 String username = jb.getString("USERNAME");
-                String content = jb.getString("DATE");
-                String
+                String content = jb.getString("CONTENT");
+                String date = jb.getString("DATE");
                 Button friend = new Button(this);
-
-                friend.setText(id);
+                friend.setText(content);
                 layout.addView(friend);
+
             }
         } catch (JSONException e) {
             e.printStackTrace();
