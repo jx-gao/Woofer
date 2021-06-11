@@ -83,7 +83,7 @@ public class Status extends AppCompatActivity {
     }
 
 //Post status
-    public void createNewStatus(){
+    private void createNewStatus(){
         EditText newStatus = (EditText)findViewById(R.id.messageEdit);
 
         ContentValues cv = new ContentValues();
@@ -94,27 +94,29 @@ public class Status extends AppCompatActivity {
         request.doRequest(Status.this, "poststatus", cv, new RequestHandler() {
             @Override
             public void proccessResponse(String response) {
-                proccessOutcome(response);
+                Toast.makeText(Status.this, response, Toast.LENGTH_LONG).show();
+                statusView.removeAllViews();
+                doGetStatuses();
             }
         });
     }
 
-    public boolean checkFieldsEmpty(){
+    public void doShowFriend(View view){
+        Intent intent = new Intent(getApplicationContext(), FriendList.class);
+        intent.putExtra("username",username);
+        startActivity(intent);
+    }
+
+    public void doRefreshStatus(View view){
+        statusView.removeAllViews();
+        doGetStatuses();
+    }
+
+    private boolean checkFieldsEmpty(){
         if(newStatus.getText().toString().equals("")){return true;}
         return false;
     }
 
-    public void proccessOutcome(String response){
-        if(response.equals("New record created successfully")){
-            Toast.makeText(Status.this, "Successfully posted status!", Toast.LENGTH_LONG).show();
-            return;
-        }else if(response.equals("Error")){
-            Toast.makeText(Status.this, "Error posting status", Toast.LENGTH_LONG).show();
-            return;
-        }
-        //when error occurs in signup php
-        Toast.makeText(Status.this, "Error trying to posting status, try again later", Toast.LENGTH_LONG).show();
-    }
 
     public void doStatus(View view) {
         if(checkFieldsEmpty()){

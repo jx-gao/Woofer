@@ -11,15 +11,30 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#FFFFFF"
         android:orientation="vertical"
         android:padding="20dp">
 
         <Button
-            android:id="@+id/chatSendButton2"
+            android:id="@+id/friendlistButon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewUsername"
             android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:onClick="doShowFriend"
             android:text="Friends"
+            android:textColor="@color/background_material_light"
+            app:backgroundTint="#ca9b52" />
+
+        <Button
+            android:id="@+id/refreshStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewUsername"
+            android:layout_marginTop="10dp"
+            android:onClick="doRefreshStatus"
+            android:text="Refresh statuses"
             android:textColor="@color/background_material_light"
             app:backgroundTint="#ca9b52" />
 
@@ -60,10 +75,10 @@
             android:layout_width="391dp"
             android:layout_height="wrap_content"
             android:layout_above="@+id/messageEdit"
-            android:layout_below="@+id/textViewUsername"
-            android:layout_marginTop="20dp"
+            android:layout_below="@+id/refreshStatus"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:background="#ffffb0"
+            android:background="#ECECEC"
             android:fadingEdge="horizontal">
 
             <LinearLayout
