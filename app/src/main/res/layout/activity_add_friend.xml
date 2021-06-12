@@ -1,34 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".AddFriend">
 
-    <EditText
-        android:id="@+id/editTextFriendUsername"
-        android:layout_width="251dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="32dp"
-        android:ems="10"
-        android:hint="Enter username"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toStartOf="@+id/buttonAddFriend"
-        app:layout_constraintHorizontal_bias="0.313"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/buttonAddFriend"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
-        android:onClick="doAddFriend"
-        android:text="Add"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <RelativeLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF"
+        android:orientation="vertical"
+        android:padding="0dp">
+
+        <TextView
+            android:id="@+id/textViewAddFriend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="left|center_vertical"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:singleLine="false"
+            android:text="YOUR FRIEND'S FRIENDS"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/refreshFOF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="17dp"
+            android:layout_marginBottom="10dp"
+            android:onClick="doRefreshFOF"
+            android:text="Refresh"
+            android:textColor="@color/background_material_light"
+            app:backgroundTint="#ca9b52" />
+
+        <ScrollView
+            android:id="@+id/fofScroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/editTextFriendUsername"
+            android:layout_below="@id/textViewAddFriend"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="#FFFFFF"
+            android:fadingEdge="horizontal"
+            android:padding="20dp">
+
+
+            <LinearLayout
+                android:id="@+id/fofLinearView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+        </ScrollView>
+
+        <EditText
+            android:id="@+id/editTextFriendUsername"
+            android:layout_width="285dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:hint="Enter friend username"
+            android:inputType="textPersonName" />
+
+        <Button
+            android:id="@+id/buttonAddFriend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="4dp"
+            android:layout_marginBottom="6dp"
+            android:onClick="doAddFriend"
+            android:text="Add friend"
+            android:textColor="@color/background_material_light"
+            app:backgroundTint="#ffb74d" />
+
+    </RelativeLayout>
+
+</LinearLayout>
