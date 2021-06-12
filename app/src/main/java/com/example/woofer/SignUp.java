@@ -1,17 +1,12 @@
 package com.example.woofer;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.ContentValues;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-
-import java.util.ArrayList;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class SignUp extends AppCompatActivity {
 
@@ -32,17 +27,16 @@ public class SignUp extends AppCompatActivity {
         PHPRequest request = new PHPRequest();
         request.doRequest(SignUp.this, "signup", cv, new RequestHandler() {
             @Override
-            public void proccessResponse(String response) {
+            public void processResponse(String response) {
                 proccessOutcome(response);
             }
         });
     }
 
     public boolean checkFieldsEmpty(){
-        if(editTextUsername.getText().toString().equals("")
+        return editTextUsername.getText().toString().equals("")
                 || editTextPassword.getText().toString().equals("")
-                || editTextName.getText().toString().equals("")){return true;}
-        return false;
+                || editTextName.getText().toString().equals("");
     }
 
     public void proccessOutcome(String response){
@@ -59,9 +53,9 @@ public class SignUp extends AppCompatActivity {
     }
 
     public void doSignup(View view) {
-        editTextUsername = (EditText) findViewById(R.id.editTextSignupUsername);
-        editTextName = (EditText) findViewById(R.id.editTextSignupName);
-        editTextPassword = (EditText) findViewById(R.id.editTextSignupPassword);
+        editTextUsername = findViewById(R.id.editTextSignupUsername);
+        editTextName = findViewById(R.id.editTextSignupName);
+        editTextPassword = findViewById(R.id.editTextSignupPassword);
 
         if(checkFieldsEmpty()){
             Toast.makeText(SignUp.this, "One or more fields are empty", Toast.LENGTH_LONG).show();

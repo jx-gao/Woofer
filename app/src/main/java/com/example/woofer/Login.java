@@ -1,30 +1,17 @@
 package com.example.woofer;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.IOException;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.FormBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
 public class Login extends AppCompatActivity {
 
@@ -37,10 +24,7 @@ public class Login extends AppCompatActivity {
     }
 
     public boolean checkFieldsEmpty(){
-        if(editTextUsername.getText().toString().equals("") || editTextPassword.getText().toString().equals("")){
-            return true;
-        }
-        return false;
+        return editTextUsername.getText().toString().equals("") || editTextPassword.getText().toString().equals("");
     }
 
     public void processJSON(String json) {
@@ -75,7 +59,7 @@ public class Login extends AppCompatActivity {
         PHPRequest request = new PHPRequest();
         request.doRequest(Login.this, "login", cv, new RequestHandler() {
             @Override
-            public void proccessResponse(String response) {
+            public void processResponse(String response) {
                 processJSON(response);
             }
         });
@@ -87,8 +71,8 @@ public class Login extends AppCompatActivity {
     }
 
     public void doLogin(View view) {
-        editTextUsername = (EditText) findViewById(R.id.editTextLoginUsername);
-        editTextPassword = (EditText) findViewById(R.id.editTextLoginPassword);
+        editTextUsername = findViewById(R.id.editTextLoginUsername);
+        editTextPassword = findViewById(R.id.editTextLoginPassword);
 
         login();
     }

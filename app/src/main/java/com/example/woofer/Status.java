@@ -27,10 +27,10 @@ public class Status extends AppCompatActivity {
         Intent intent = getIntent();
 
         username = intent.getStringExtra("username");
-        TextView usernameLbl = (TextView) findViewById(R.id.textViewUsername);
+        TextView usernameLbl = findViewById(R.id.textViewUsername);
         usernameLbl.setText(username);
-        statusView = (LinearLayout) findViewById(R.id.statusView);
-        newStatus = (EditText)findViewById(R.id.messageEdit);
+        statusView = findViewById(R.id.statusView);
+        newStatus = findViewById(R.id.messageEdit);
 
         doGetStatuses();
     }
@@ -41,7 +41,7 @@ public class Status extends AppCompatActivity {
         PHPRequest request = new PHPRequest();
         request.doRequest(Status.this, "status", cv, new RequestHandler() {
             @Override
-            public void proccessResponse(String response) {
+            public void processResponse(String response) {
                 displayStatuses(response);
             }
         });
@@ -66,7 +66,6 @@ public class Status extends AppCompatActivity {
 
     private void displayStatuses(String myResponse) {
         try {
-            String out = "";
             JSONArray jr = new JSONArray(myResponse);
 
             for (int i = 0; i < jr.length(); i++) {
@@ -84,7 +83,7 @@ public class Status extends AppCompatActivity {
 
 //Post status
     private void createNewStatus(){
-        EditText newStatus = (EditText)findViewById(R.id.messageEdit);
+        EditText newStatus = findViewById(R.id.messageEdit);
 
         ContentValues cv = new ContentValues();
         cv.put("username", username);
@@ -93,7 +92,7 @@ public class Status extends AppCompatActivity {
         PHPRequest request = new PHPRequest();
         request.doRequest(Status.this, "poststatus", cv, new RequestHandler() {
             @Override
-            public void proccessResponse(String response) {
+            public void processResponse(String response) {
                 Toast.makeText(Status.this, response, Toast.LENGTH_LONG).show();
                 statusView.removeAllViews();
                 doGetStatuses();
@@ -113,8 +112,7 @@ public class Status extends AppCompatActivity {
     }
 
     private boolean checkFieldsEmpty(){
-        if(newStatus.getText().toString().equals("")){return true;}
-        return false;
+        return newStatus.getText().toString().equals("");
     }
 
 

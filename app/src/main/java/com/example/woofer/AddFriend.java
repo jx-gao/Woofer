@@ -1,38 +1,34 @@
 package com.example.woofer;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.ContentValues;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 public class AddFriend extends AppCompatActivity {
 
     private String username;
-    private EditText editTextFriendUsername;
     LinearLayout fofContainer;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_friend);
         Intent intent = getIntent();
 
         username = intent.getStringExtra("username");
-        fofContainer = (LinearLayout) findViewById(R.id.fofLinearView);
+        fofContainer = findViewById(R.id.fofLinearView);
 
         doGetFOF();
     }
@@ -64,7 +60,7 @@ public class AddFriend extends AppCompatActivity {
         PHPRequest request = new PHPRequest();
         request.doRequest(AddFriend.this, "fof", cv, new RequestHandler() {
             @Override
-            public void proccessResponse(String response) {
+            public void processResponse(String response) {
                 processJSON(response);
             }
         });
@@ -107,7 +103,7 @@ public class AddFriend extends AppCompatActivity {
         PHPRequest request = new PHPRequest();
         request.doRequest(AddFriend.this, "addfriend", cv, new RequestHandler() {
             @Override
-            public void proccessResponse(String response) {
+            public void processResponse(String response) {
                 Toast.makeText(AddFriend.this, response, Toast.LENGTH_LONG).show();
                 fofContainer.removeAllViews();
                 doGetFOF();
@@ -116,7 +112,7 @@ public class AddFriend extends AppCompatActivity {
     }
 
     public void doAddFriend(View view) {
-        editTextFriendUsername = (EditText) findViewById(R.id.editTextFriendUsername);
+        EditText editTextFriendUsername = findViewById(R.id.editTextFriendUsername);
         if(editTextFriendUsername.getText().toString().equals("")){
             Toast.makeText(AddFriend.this, "Enter friend username", Toast.LENGTH_LONG).show();
             return;
