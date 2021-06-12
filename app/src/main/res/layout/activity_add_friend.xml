@@ -29,7 +29,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
             android:singleLine="false"
-            android:text="YOUR FRIEND'S FRIENDS"
+            android:text="TAP TO ADD FRIEND"
             android:textSize="20dp" />
 
         <Button

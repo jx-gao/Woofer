@@ -17,12 +17,12 @@ public class FOFLayout extends LinearLayout {
         setOrientation(LinearLayout.HORIZONTAL);
 
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT);
-        lp.weight = 0;
+        lp.weight = (float) 0.5;
 
         friend = new TextView(context);
         friend.setPadding(20,20,50,20);
         friend.setTextSize(15);
-        addView(friend);
+        addView(friend, lp);
 
 
         fof = new TextView(context);

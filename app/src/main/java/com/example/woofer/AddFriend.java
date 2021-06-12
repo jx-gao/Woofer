@@ -39,16 +39,18 @@ public class AddFriend extends AppCompatActivity {
 
     private void createLabels() {
         TextView friend = new TextView(this), fof = new TextView(this);
-        friend.setText("Friend:");
+        friend.setText("FRIEND");
         friend.setTextSize(15);
         friend.setPadding(20,20,50,20);
-        fof.setText("Fof:");
+        fof.setText("THEIR FRIEND");
         fof.setTextSize(15);
         fof.setPadding(20,20,20,20);
 
         LinearLayout labelLayout = new LinearLayout(this);
         labelLayout.setOrientation(LinearLayout.HORIZONTAL);
-        labelLayout.addView(friend);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+        lp.weight = (float) 0.5;
+        labelLayout.addView(friend,lp);
         labelLayout.addView(fof);
 
         labelLayout.setBackgroundColor(Color.parseColor("#ca9b52"));
