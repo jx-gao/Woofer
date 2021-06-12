@@ -53,6 +53,7 @@ public class Login extends AppCompatActivity {
                 if(jo.getString("Password").equals(editTextPassword.getText().toString())){
                     Intent intent = new Intent(getApplicationContext(), Status.class);
                     intent.putExtra("username", editTextUsername.getText().toString());
+
                     startActivity(intent);
                     finish();
                 }else{
