@@ -89,6 +89,7 @@ public class Status extends AppCompatActivity {
         cv.put("content", newStatus.getText().toString());
 
         PHPRequest request = new PHPRequest();
+        newStatus.setText("");
         request.doRequest(Status.this, "poststatus", cv, new RequestHandler() {
             @Override
             public void processResponse(String response) {
