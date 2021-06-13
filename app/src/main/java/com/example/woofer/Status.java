@@ -1,10 +1,12 @@
 package com.example.woofer;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -48,18 +50,15 @@ public class Status extends AppCompatActivity {
     }
 
     private void displayContent(String author, String content, String date){
-        LinearLayout status = new LinearLayout(this);
-        status.setOrientation(LinearLayout.HORIZONTAL);
-        TextView authorView = new TextView(this);
-        TextView contentView = new TextView(this);
-        TextView dateView = new TextView(this);
-        authorView.setText(author);
-        contentView.setText(content);
-        dateView.setText(date);
-        status.addView(authorView);
-        status.addView(contentView);
-        status.addView(dateView);
-        statusView.addView(status);
+        ConstraintLayout statusWidget = (ConstraintLayout) LayoutInflater.from(Status.this).inflate(R.layout.component_status, null);
+        TextView auth = statusWidget.findViewById(R.id.statusPostAuthor) ;
+        TextView cont = statusWidget.findViewById(R.id.statusPostContent);
+        TextView time = statusWidget.findViewById(R.id.statusPostTime);
+        auth.setText(author);
+        cont.setText(content);
+        time.setText(date);
+        statusView.addView(statusWidget);
+
     }
 
 
