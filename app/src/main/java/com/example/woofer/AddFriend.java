@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,81 +37,67 @@ public class AddFriend extends AppCompatActivity {
         doGetFOF();
     }
 
-    private void createLabels() {
-        TextView friend = new TextView(this), fof = new TextView(this);
-        friend.setText("FRIEND");
-        friend.setTextSize(15);
-        friend.setPadding(20,20,50,20);
-        fof.setText("THEIR FRIEND");
-        fof.setTextSize(15);
-        fof.setPadding(20,20,20,20);
-
-        LinearLayout labelLayout = new LinearLayout(this);
-        labelLayout.setOrientation(LinearLayout.HORIZONTAL);
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT);
-        lp.weight = (float) 0.5;
-        labelLayout.addView(friend,lp);
-        labelLayout.addView(fof);
-
-        labelLayout.setBackgroundColor(Color.parseColor("#ca9b52"));
-        fofContainer.addView(labelLayout);
-    }
-
     private void doGetFOF() {
-        createLabels();
         ContentValues cv = new ContentValues();
         cv.put("username", username);
         PHPRequest request = new PHPRequest();
         request.doRequest(AddFriend.this, "fof", cv, new RequestHandler() {
             @Override
             public void processResponse(String response) {
-                processJSON(response);
+                displayFOF(response);
             }
         });
     }
 
-    public void processJSON(String json){
-        try {
-            JSONArray ja = new JSONArray(json);
-            for (int i = 0; i < ja.length(); i++) {
-                JSONObject jo = ja.getJSONObject(i);
-                FOFLayout fofL = new FOFLayout(this);
-                fofL.populate(jo);
-                String friendName = jo.getString("USERNAME2");
-                if(i%2==0){
-                    fofL.setBackgroundColor(Color.parseColor("#EEEEFF"));
-                }
-                fofContainer.addView(fofL);
 
-                fofL.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(AddFriend.this);
-                        builder.setCancelable(true);
-                        builder.setTitle("Add "+friendName+" as a Friend?");
-                        builder.setMessage("You will receive all of "+ friendName+"'s status updates");
-                        builder.setPositiveButton("Confirm",
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        addFriend(friendName);
-                                    }
-                                });
-                        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+    private void displayContent(String friendName, String fof){
+        ConstraintLayout fofWidget = (ConstraintLayout) LayoutInflater.from(AddFriend.this).inflate(R.layout.component_fof, null);
+        TextView textViewFOF = fofWidget.findViewById(R.id.textViewFOF);
+        TextView textViewFriend = fofWidget.findViewById(R.id.textViewFriend) ;
+        textViewFOF.setText(fof);
+        textViewFriend.setText(friendName);
+        fofWidget.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(AddFriend.this);
+                builder.setCancelable(true);
+                builder.setTitle("Add "+fof+" as a Friend?");
+                builder.setMessage("You will receive all of "+ fof+"'s status updates");
+                builder.setPositiveButton("Confirm",
+                        new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                addFriend(fof);
                             }
                         });
-
-                        AlertDialog dialog = builder.create();
-                        dialog.show();
+                builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
                     }
                 });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
+        fofContainer.addView(fofWidget);
+    }
+
+
+
+    private void displayFOF(String myResponse) {
+        try {
+            JSONArray jr = new JSONArray(myResponse);
+
+            for (int i = 0; i < jr.length(); i++) {
+                JSONObject jb = (JSONObject) jr.get(i);
+                String fof = jb.getString("USERNAME2");
+                String friend = jb.getString("USERNAME1");
+                displayContent(friend, fof);
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
     }
 
     public void addFriend(String friendUsername){
