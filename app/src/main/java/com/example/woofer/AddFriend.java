@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -75,6 +76,7 @@ public class AddFriend extends AppCompatActivity {
                 JSONObject jo = ja.getJSONObject(i);
                 FOFLayout fofL = new FOFLayout(this);
                 fofL.populate(jo);
+                String friendName = jo.getString("USERNAME2");
                 if(i%2==0){
                     fofL.setBackgroundColor(Color.parseColor("#EEEEFF"));
                 }
@@ -85,21 +87,13 @@ public class AddFriend extends AppCompatActivity {
                     public void onClick(View v) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(AddFriend.this);
                         builder.setCancelable(true);
-                        builder.setTitle("Add Friend");
-                        try {
-                            builder.setMessage("Add "+jo.getString("USERNAME2")+" to your friend list?");
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        builder.setTitle("Add "+friendName+" as a Friend?");
+                        builder.setMessage("You will receive all of "+ friendName+"'s status updates");
                         builder.setPositiveButton("Confirm",
                                 new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        try {
-                                            addFriend(jo.getString("USERNAME2"));
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
+                                        addFriend(friendName);
                                     }
                                 });
                         builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
