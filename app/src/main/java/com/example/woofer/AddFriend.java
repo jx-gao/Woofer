@@ -1,6 +1,8 @@
 package com.example.woofer;
 
+import android.app.AlertDialog;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -81,11 +83,33 @@ public class AddFriend extends AppCompatActivity {
                 fofL.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(AddFriend.this);
+                        builder.setCancelable(true);
+                        builder.setTitle("Add Friend");
                         try {
-                            addFriend(jo.getString("USERNAME2"));
+                            builder.setMessage("Add "+jo.getString("USERNAME2")+" to your friend list?");
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+                        builder.setPositiveButton("Confirm",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        try {
+                                            addFriend(jo.getString("USERNAME2"));
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                });
+                        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
                     }
                 });
             }
