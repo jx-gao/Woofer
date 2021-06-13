@@ -56,7 +56,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/statusScroll">
+        app:layout_constraintTop_toBottomOf="@+id/friendListScroll">
 
         <EditText
             android:id="@+id/messageEdit"
@@ -91,7 +91,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ScrollView
-        android:id="@+id/statusScroll"
+        android:id="@+id/friendListScroll"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
@@ -106,7 +106,7 @@
         app:layout_constraintVertical_bias="1.0">
 
         <LinearLayout
-            android:id="@+id/statusView"
+            android:id="@+id/friendListView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" />
