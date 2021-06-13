@@ -31,7 +31,7 @@ public class Status extends AppCompatActivity {
         username = intent.getStringExtra("username");
         TextView usernameLbl = findViewById(R.id.textViewUsername);
         usernameLbl.setText(username);
-        statusView = findViewById(R.id.statusView);
+        statusView = findViewById(R.id.friendListView);
         newStatus = findViewById(R.id.messageEdit);
 
         doGetStatuses();

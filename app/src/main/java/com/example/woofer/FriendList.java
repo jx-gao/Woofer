@@ -3,12 +3,14 @@ package com.example.woofer;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,20 +19,28 @@ import org.json.JSONObject;
 public class FriendList extends AppCompatActivity {
 
     String username;
-    LinearLayout layout;
+    LinearLayout friendLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend_list);
-        layout = findViewById(R.id.mainView);
+        friendLayout = findViewById(R.id.friendListView);
 
         Intent intent = getIntent();
         username = intent.getStringExtra("username");
 
-        addFriendButton();
-
+        TextView usernameLbl = findViewById(R.id.friendListUsername);
+        usernameLbl.setText(username);
         doGetFriends();
+    }
+
+    private void displayContent(String friend){
+        ConstraintLayout friendListWidget = (ConstraintLayout) LayoutInflater.from(FriendList.this).inflate(R.layout.component_friend, null);
+        TextView name = friendListWidget.findViewById(R.id.friendName) ;
+        name.setText(friend);
+        friendLayout.addView(friendListWidget);
+
     }
 
 
@@ -63,11 +73,9 @@ public class FriendList extends AppCompatActivity {
 
             for (int i = 0; i < jr.length(); i++) {
                 JSONObject jb = (JSONObject) jr.get(i);
-                String id = jb.getString("Username");
-                Button friend = new Button(this);
+                String friendUName = jb.getString("Username");
+                displayContent(friendUName);
 
-                friend.setText(id);
-                layout.addView(friend);
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -80,19 +88,10 @@ public class FriendList extends AppCompatActivity {
         layout.addView(output);
     }
 
-    private void addFriendButton(){
-        Button addFriends = new Button(this);
-        addFriends.setText("Add friend");
-        layout.addView(addFriends);
-
-        addFriends.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), AddFriend.class);
-                intent.putExtra("username", username);
-                startActivity(intent);
-            }
-        });
+    public void doAddFriends(View v){
+        Intent intent = new Intent(getApplicationContext(), AddFriend.class);
+        intent.putExtra("username", username);
+        startActivity(intent);
     }
 
 }
