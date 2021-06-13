@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -31,7 +30,7 @@ public class AddFriend extends AppCompatActivity {
         Intent intent = getIntent();
 
         username = intent.getStringExtra("username");
-        fofContainer = findViewById(R.id.fofLinearView);
+        fofContainer = findViewById(R.id.fofView);
 
         doGetFOF();
     }
