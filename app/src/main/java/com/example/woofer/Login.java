@@ -32,17 +32,17 @@ public class Login extends AppCompatActivity {
             JSONArray ja = new JSONArray(json);
             if(ja.length() == 0){
                 Toast.makeText(Login.this, "Username or password incorrect", Toast.LENGTH_LONG).show();
-            }else{
-                JSONObject jo = ja.getJSONObject(0);
-                if(jo.getString("Password").equals(editTextPassword.getText().toString())){
-                    Intent intent = new Intent(getApplicationContext(), Status.class);
-                    intent.putExtra("username", jo.getString("Username"));
+                return;
+            }
+            JSONObject jo = ja.getJSONObject(0);
+            if(jo.getString("Password").equals(editTextPassword.getText().toString())){
+                Intent intent = new Intent(getApplicationContext(), Status.class);
+                intent.putExtra("username", jo.getString("Username"));
+                startActivity(intent);
 
-                    startActivity(intent);
-                    finish();
-                }else{
-                    Toast.makeText(Login.this, "Username or password incorrect", Toast.LENGTH_LONG).show();
-                }
+                finish();
+            }else{
+                Toast.makeText(Login.this, "Username or password incorrect", Toast.LENGTH_LONG).show();
             }
         } catch (JSONException e) {
             e.printStackTrace();
