@@ -2,17 +2,18 @@
     <!-- Base application theme. -->
     <style name="Theme.Woofer" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">#ffcc80</item>
-        <item name="colorPrimaryVariant">#ca9b52</item>
+        <item name="colorPrimary">#ffb347</item>
+        <item name="colorPrimaryVariant">#ffe577</item>
         <item name="colorOnPrimary">#000000</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">#3E3E3E</item>
-        <item name="colorSecondaryVariant">#3E3E3E</item>
-        <item name="colorOnSecondary">#ffffff</item>
+        <item name="colorSecondary">#b3e5fc</item>
+        <item name="colorSecondaryVariant">#82b3c9</item>
+        <item name="colorOnSecondary">#000000</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimary</item>
         <!-- Customize your theme here. -->
         <item name="colorControlNormal">#DDDDDD</item>
         <item name="colorControlActivated">#DDDDDD</item>
+        <item name="fontFamily">@font/roboto</item>
     </style>
 </resources>

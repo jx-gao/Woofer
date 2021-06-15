@@ -113,10 +113,10 @@ public class FriendList extends AppCompatActivity {
         }
     }
     private void displayFail(){
-        LinearLayout layout = findViewById(R.id.mainView);
+        LinearLayout friendListLayout = findViewById(R.id.friendListView);
         TextView output = new TextView(this);
         output.setText("You have no friends lmao");
-        layout.addView(output);
+        friendListLayout.addView(output);
     }
 
     public void doAddFriends(View v){
