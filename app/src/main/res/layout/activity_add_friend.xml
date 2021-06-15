@@ -34,7 +34,6 @@
         android:onClick="doRefreshFOF"
         android:text="Refresh"
         android:textColor="@color/background_material_light"
-        app:backgroundTint="#171716"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/textViewAddFriend"
@@ -151,7 +150,6 @@
             android:onClick="doAddFriend"
             android:text="Add friend"
             android:textColor="@color/background_material_light"
-            app:backgroundTint="#0C0C0C"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
