@@ -29,8 +29,6 @@ public class Status extends AppCompatActivity {
         Intent intent = getIntent();
 
         username = intent.getStringExtra("username");
-        TextView usernameLbl = findViewById(R.id.textViewUsername);
-        usernameLbl.setText(username);
         statusView = findViewById(R.id.friendListView);
         newStatus = findViewById(R.id.messageEdit);
 
@@ -51,9 +49,9 @@ public class Status extends AppCompatActivity {
 
     private void displayContent(String author, String content, String date){
         ConstraintLayout statusWidget = (ConstraintLayout) LayoutInflater.from(Status.this).inflate(R.layout.component_status, null);
-        TextView auth = statusWidget.findViewById(R.id.statusPostAuthor) ;
+        TextView auth = statusWidget.findViewById(R.id.friendName) ;
         TextView cont = statusWidget.findViewById(R.id.statusPostContent);
-        TextView time = statusWidget.findViewById(R.id.statusPostTime);
+        TextView time = statusWidget.findViewById(R.id.friendInfo);
         auth.setText(author);
         cont.setText(content);
         time.setText("at "+date);
