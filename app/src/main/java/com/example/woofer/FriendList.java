@@ -1,6 +1,7 @@
 package com.example.woofer;
 
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -39,9 +41,38 @@ public class FriendList extends AppCompatActivity {
         ConstraintLayout friendListWidget = (ConstraintLayout) LayoutInflater.from(FriendList.this).inflate(R.layout.component_friend, null);
         TextView name = friendListWidget.findViewById(R.id.friendName) ;
         name.setText(friend);
+        friendListWidget.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doInteract(friend);
+            }
+        });
         friendLayout.addView(friendListWidget);
 
     }
+
+
+    public void doInteract(String name){
+        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        alertDialog.setTitle("Dialog Button");
+        alertDialog.setMessage("This is a three-button dialog!");
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "View "+name+"'s friends", new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int id) {
+            } });
+
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Unfriend "+name, new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int id) {
+            }});
+
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Cancel", new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int id) {
+            }});
+        alertDialog.show();
+    }
+
 
 
     public void doGetFriends(){

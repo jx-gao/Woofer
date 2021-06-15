@@ -56,7 +56,7 @@ public class Status extends AppCompatActivity {
         TextView time = statusWidget.findViewById(R.id.statusPostTime);
         auth.setText(author);
         cont.setText(content);
-        time.setText(date);
+        time.setText("at "+date);
         statusView.addView(statusWidget);
 
     }
