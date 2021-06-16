@@ -91,8 +91,8 @@ public class AddFriend extends AppCompatActivity {
 
             for (int i = 0; i < jr.length(); i++) {
                 JSONObject jb = (JSONObject) jr.get(i);
-                String fof = jb.getString("USERNAME2");
-                String friend = jb.getString("USERNAME1");
+                String fof = jb.getString("FRIEND");
+                String friend = jb.getString("USERNAME");
                 displayContent(friend, fof);
             }
         } catch (JSONException e) {
