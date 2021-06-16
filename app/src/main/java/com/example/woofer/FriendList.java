@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -55,21 +56,31 @@ public class FriendList extends AppCompatActivity {
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
         alertDialog.setTitle("Dialog Button");
         alertDialog.setMessage("This is a three-button dialog!");
-        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "View "+name+"'s friends", new DialogInterface.OnClickListener() {
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Remove Friend", new DialogInterface.OnClickListener() {
 
             public void onClick(DialogInterface dialog, int id) {
+                doRemoveFriend(name);
             } });
 
-        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Unfriend "+name, new DialogInterface.OnClickListener() {
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
 
             public void onClick(DialogInterface dialog, int id) {
             }});
 
-        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Cancel", new DialogInterface.OnClickListener() {
-
-            public void onClick(DialogInterface dialog, int id) {
-            }});
         alertDialog.show();
+    }
+
+    private void doRemoveFriend(String friend){
+        ContentValues cv = new ContentValues();
+        cv.put("username", username);
+        cv.put("friend",friend);
+        PHPRequest request = new PHPRequest();
+        request.doRequest(FriendList.this, "removefriend", cv, new RequestHandler() {
+            @Override
+            public void processResponse(String response) {
+                Toast.makeText(FriendList.this, response, Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
 
@@ -122,6 +133,11 @@ public class FriendList extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), AddFriend.class);
         intent.putExtra("username", username);
         startActivity(intent);
+    }
+
+    public void doRefreshFriends(View v){
+        friendLayout.removeAllViews();
+        doGetFriends();
     }
 
 }
