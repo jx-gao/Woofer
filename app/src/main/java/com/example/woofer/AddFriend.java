@@ -37,7 +37,7 @@ public class AddFriend extends AppCompatActivity {
         doGetFOF();
     }
 
-    private void doGetFOF() {
+    private void doGetFOF() { //send http request to PHP API to get json string of friends and their friends
         ContentValues cv = new ContentValues();
         cv.put("username", username);
         PHPRequest request = new PHPRequest();
@@ -50,7 +50,7 @@ public class AddFriend extends AppCompatActivity {
     }
 
 
-    private void displayContent(String friendName, String fof){
+    private void displayContent(String friendName, String fof){ //for a friend of friend create a layout and give alertdialog to confirm if user wants to add them as a friend
         ConstraintLayout fofWidget = (ConstraintLayout) LayoutInflater.from(AddFriend.this).inflate(R.layout.component_fof, null);
         TextView textViewFOF = fofWidget.findViewById(R.id.textViewFOF);
         TextView textViewFriend = fofWidget.findViewById(R.id.textViewFriend) ;
@@ -85,7 +85,7 @@ public class AddFriend extends AppCompatActivity {
 
 
 
-    private void displayFOF(String myResponse) {
+    private void displayFOF(String myResponse) { //for each friend create a layout and add it to the scrollview
         try {
             JSONArray jr = new JSONArray(myResponse);
 
@@ -100,7 +100,7 @@ public class AddFriend extends AppCompatActivity {
         }
     }
 
-    public void addFriend(String friendUsername){
+    public void addFriend(String friendUsername){ //send a request to insert new friend into database given a friend's username
         ContentValues cv = new ContentValues();
         cv.put("username", username);
         cv.put("friend", friendUsername);
@@ -116,7 +116,7 @@ public class AddFriend extends AppCompatActivity {
         });
     }
 
-    public void doAddFriend(View view) {
+    public void doAddFriend(View view) { //get friend username from the field and submit it to addfriend method
         EditText editTextFriendUsername = findViewById(R.id.editTextFriendUsername);
         if(editTextFriendUsername.getText().toString().equals("")){
             Toast.makeText(AddFriend.this, "Enter friend username", Toast.LENGTH_LONG).show();

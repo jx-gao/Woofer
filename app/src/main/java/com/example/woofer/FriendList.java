@@ -34,7 +34,7 @@ public class FriendList extends AppCompatActivity {
         doGetFriends();
     }
 
-    private void displayContent(String friend){
+    private void displayContent(String friend){ //creates a friend layout for the given friend string
         ConstraintLayout friendListWidget = (ConstraintLayout) LayoutInflater.from(FriendList.this).inflate(R.layout.component_friend, null);
         TextView name = friendListWidget.findViewById(R.id.friendName) ;
         name.setText(friend);
@@ -49,11 +49,11 @@ public class FriendList extends AppCompatActivity {
     }
 
 
-    public void doInteract(String name){
+    public void doInteract(String name){ //gives each friend layout an alert dialog for more options
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
         alertDialog.setTitle("Friend Options");
         alertDialog.setMessage("Would you like to remove "+name+" as a friend?");
-        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Remove Friend", new DialogInterface.OnClickListener() {
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Remove Friend", new DialogInterface.OnClickListener() { //option to remove friend
 
             public void onClick(DialogInterface dialog, int id) {
                 doRemoveFriend(name);
@@ -67,7 +67,7 @@ public class FriendList extends AppCompatActivity {
         alertDialog.show();
     }
 
-    private void doRemoveFriend(String friend){
+    private void doRemoveFriend(String friend){ //remove friend from db via PHP API
         ContentValues cv = new ContentValues();
         cv.put("username", username);
         cv.put("friend",friend);
@@ -85,7 +85,7 @@ public class FriendList extends AppCompatActivity {
 
 
 
-    public void doGetFriends(){
+    public void doGetFriends(){ //get friend json string using http PHP API
         ContentValues cv = new ContentValues();
         cv.put("username", username);
         PHPRequest request = new PHPRequest();
@@ -98,7 +98,7 @@ public class FriendList extends AppCompatActivity {
     }
 
 
-    private void processJSON(String json){
+    private void processJSON(String json){ //check if user has any friends
         if(json.equals("[]")){
             displayFail();
         }else{
@@ -107,14 +107,14 @@ public class FriendList extends AppCompatActivity {
 
     }
 
-    private void displayFriends(String myResponse){
+    private void displayFriends(String myResponse){ //for each friend in the json string, create and add a friend layout to the screen
 
         try {
             JSONArray jr = new JSONArray(myResponse);
 
             for (int i = 0; i < jr.length(); i++) {
                 JSONObject jb = (JSONObject) jr.get(i);
-                String friendUName = jb.getString("USERNAME");
+                String friendUName = jb.getString("FRIEND");
                 displayContent(friendUName);
 
             }
@@ -122,20 +122,20 @@ public class FriendList extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-    private void displayFail(){
+    private void displayFail(){ //display for when someone has no friends lol
         LinearLayout friendListLayout = findViewById(R.id.friendListView);
         TextView output = new TextView(this);
         output.setText("You have no friends lmao");
         friendListLayout.addView(output);
     }
 
-    public void doAddFriends(View v){
+    public void doAddFriends(View v){ //open addfriend screen
         Intent intent = new Intent(getApplicationContext(), AddFriend.class);
         intent.putExtra("username", username);
         startActivity(intent);
     }
 
-    public void doRefreshFriends(View v){
+    public void doRefreshFriends(View v){ //clear friend screen then refresh
         friendLayout.removeAllViews();
         doGetFriends();
     }

@@ -29,11 +29,11 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
     }
 
-    public boolean checkFieldsEmpty(){
+    public boolean checkFieldsEmpty(){ //boolean to check if any fields are empty
         return editTextUsername.getText().toString().equals("") || editTextPassword.getText().toString().equals("");
     }
 
-    public void processJSON(String json) {
+    public void processJSON(String json) { //checks password hash content against received hash, if valid opens status screen, else shows incorrect error
         try {
             JSONArray ja = new JSONArray(json);
             if(ja.length() == 0){
@@ -55,6 +55,7 @@ public class Login extends AppCompatActivity {
         }
     }
 
+    //hashes string to SHA-256
     public static String computeHash(String input) throws NoSuchAlgorithmException, UnsupportedEncodingException { //https://stackoverflow.com/questions/9661008/compute-sha256-hash-in-android-java-and-c-sharp
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
         digest.reset();
@@ -68,7 +69,7 @@ public class Login extends AppCompatActivity {
         return sb.toString();
     }
 
-    public void login() throws UnsupportedEncodingException, NoSuchAlgorithmException {
+    public void login() throws UnsupportedEncodingException, NoSuchAlgorithmException { //gets data from the fields and uses them in http get request
         ContentValues cv = new ContentValues();
         if (checkFieldsEmpty()) {
             Toast.makeText(Login.this, "Username or password needs to be entered", Toast.LENGTH_LONG).show();
@@ -87,7 +88,7 @@ public class Login extends AppCompatActivity {
         });
     }
 
-    public void doGoToSignup(View view) {
+    public void doGoToSignup(View view) { //opens sign up screen
         Intent intent = new Intent(getApplicationContext(), SignUp.class);
         startActivity(intent);
     }

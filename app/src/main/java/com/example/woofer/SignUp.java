@@ -21,7 +21,7 @@ public class SignUp extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
     }
 
-    public void createNewUser() throws UnsupportedEncodingException, NoSuchAlgorithmException {
+    public void createNewUser() throws UnsupportedEncodingException, NoSuchAlgorithmException { //sends http request to PHP API to create new user in DB
         ContentValues cv = new ContentValues();
         cv.put("username", editTextUsername.getText().toString());
         cv.put("password", Login.computeHash(editTextPassword.getText().toString()));
@@ -35,13 +35,13 @@ public class SignUp extends AppCompatActivity {
         });
     }
 
-    public boolean checkFieldsEmpty(){
+    public boolean checkFieldsEmpty(){ //checks if any fields are empty
         return editTextUsername.getText().toString().equals("")
                 || editTextPassword.getText().toString().equals("")
                 || editTextConfirmPassword.getText().toString().equals("");
     }
 
-    public void proccessOutcome(String response){
+    public void proccessOutcome(String response){ //Tells user if task excecuted successfully
         if(response.equals("New record created successfully")){
             Toast.makeText(SignUp.this, "Successfully created account!", Toast.LENGTH_LONG).show();
             finish();
@@ -54,7 +54,7 @@ public class SignUp extends AppCompatActivity {
         Toast.makeText(SignUp.this, "Error trying to create user, try again later", Toast.LENGTH_LONG).show();
     }
 
-    public void doSignup(View view) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+    public void doSignup(View view) throws UnsupportedEncodingException, NoSuchAlgorithmException { //makes sure the confirm password and passwords match while also checking if any fields are empty, if all OK makes new user
         editTextUsername = findViewById(R.id.editTextSignupUsername);
         editTextPassword = findViewById(R.id.editTextSignupPassword);
         editTextConfirmPassword = findViewById(R.id.editTextSignupConfirmPassword);
@@ -74,5 +74,5 @@ public class SignUp extends AppCompatActivity {
 
     public void doGoToLogin(View view) {
         finish();
-    }
+    } //go back
 }

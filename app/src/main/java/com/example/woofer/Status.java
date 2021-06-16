@@ -35,7 +35,7 @@ public class Status extends AppCompatActivity {
         doGetStatuses();
     }
 
-    private void doGetStatuses() {
+    private void doGetStatuses() {  //get status json string from db
         ContentValues cv = new ContentValues();
         cv.put("username", username);
         PHPRequest request = new PHPRequest();
@@ -47,7 +47,7 @@ public class Status extends AppCompatActivity {
         });
     }
 
-    private void displayContent(String author, String content, String date){
+    private void displayContent(String author, String content, String date){ //create status layout from component xml and set values
         ConstraintLayout statusWidget = (ConstraintLayout) LayoutInflater.from(Status.this).inflate(R.layout.component_status, null);
         TextView auth = statusWidget.findViewById(R.id.friendName) ;
         TextView cont = statusWidget.findViewById(R.id.statusPostContent);
@@ -61,7 +61,7 @@ public class Status extends AppCompatActivity {
 
 
 
-    private void displayStatuses(String myResponse) {
+    private void displayStatuses(String myResponse) { //for each status in the json string, create and add a status layout
         try {
             JSONArray jr = new JSONArray(myResponse);
 
@@ -79,7 +79,7 @@ public class Status extends AppCompatActivity {
     }
 
 //Post status
-    private void createNewStatus(){
+    private void createNewStatus(){ //get content from the message field and send http request to PHP API to insert into db
         EditText newStatus = findViewById(R.id.messageEdit);
 
         ContentValues cv = new ContentValues();
@@ -98,13 +98,13 @@ public class Status extends AppCompatActivity {
         });
     }
 
-    public void doShowFriend(View view){
+    public void doShowFriend(View view){ //open friendlist screen
         Intent intent = new Intent(getApplicationContext(), FriendList.class);
         intent.putExtra("username",username);
         startActivity(intent);
     }
 
-    public void doRefreshStatus(View view){
+    public void doRefreshStatus(View view){ //clear statuses on screen and reload the layout
         statusView.removeAllViews();
         doGetStatuses();
     }
@@ -114,9 +114,9 @@ public class Status extends AppCompatActivity {
     }
 
 
-    public void doStatus(View view) {
+    public void doStatus(View view) { //checks if the message field is empty and displays message
         if(checkFieldsEmpty()){
-            Toast.makeText(Status.this, "One or more fields are empty", Toast.LENGTH_LONG).show();
+            Toast.makeText(Status.this, "Status content is empty", Toast.LENGTH_LONG).show();
             return;
         }
 
