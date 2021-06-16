@@ -81,6 +81,8 @@ public class FriendList extends AppCompatActivity {
                 Toast.makeText(FriendList.this, response, Toast.LENGTH_LONG).show();
             }
         });
+        friendLayout.removeAllViews();
+        doGetFriends();
     }
 
 
@@ -114,7 +116,7 @@ public class FriendList extends AppCompatActivity {
 
             for (int i = 0; i < jr.length(); i++) {
                 JSONObject jb = (JSONObject) jr.get(i);
-                String friendUName = jb.getString("Username");
+                String friendUName = jb.getString("USERNAME");
                 displayContent(friendUName);
 
             }
