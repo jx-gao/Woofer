@@ -114,7 +114,7 @@ public class FriendList extends AppCompatActivity {
 
             for (int i = 0; i < jr.length(); i++) {
                 JSONObject jb = (JSONObject) jr.get(i);
-                String friendUName = jb.getString("Username");
+                String friendUName = jb.getString("USERNAME");
                 displayContent(friendUName);
 
             }

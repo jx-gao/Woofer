@@ -41,18 +41,6 @@
                 tools:ignore="Autofill" />
 
             <EditText
-                android:id="@+id/editTextSignupName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:drawableRight="@drawable/ic_drawable_person"
-                android:ems="10"
-                android:hint="@string/name"
-                android:inputType="textPersonName"
-                android:drawableEnd="@drawable/ic_drawable_person"
-                tools:ignore="Autofill" />
-
-            <EditText
                 android:id="@+id/editTextSignupPassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -60,6 +48,18 @@
                 android:drawableRight="@drawable/ic_drawable_lock"
                 android:ems="10"
                 android:hint="@string/password"
+                android:inputType="textPassword"
+                android:drawableEnd="@drawable/ic_drawable_lock"
+                tools:ignore="Autofill" />
+
+            <EditText
+                android:id="@+id/editTextSignupConfirmPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:drawableRight="@drawable/ic_drawable_lock"
+                android:ems="10"
+                android:hint="Confirm Password"
                 android:inputType="textPassword"
                 android:drawableEnd="@drawable/ic_drawable_lock"
                 tools:ignore="Autofill" />
