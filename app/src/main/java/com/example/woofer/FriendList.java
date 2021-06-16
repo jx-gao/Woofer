@@ -81,6 +81,8 @@ public class FriendList extends AppCompatActivity {
                 Toast.makeText(FriendList.this, response, Toast.LENGTH_LONG).show();
             }
         });
+        friendLayout.removeAllViews();
+        doGetFriends();
     }
 
 
