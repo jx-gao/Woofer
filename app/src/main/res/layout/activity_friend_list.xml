@@ -19,15 +19,15 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/friendListUsername"
+            android:id="@+id/friendListTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="18dp"
             android:singleLine="false"
-            android:text="MySelf"
-            android:textColor="#000000"
+            android:text="Friends"
+            android:textColor="?colorOnSecondary"
             android:textSize="20dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

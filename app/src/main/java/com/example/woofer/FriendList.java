@@ -31,9 +31,6 @@ public class FriendList extends AppCompatActivity {
 
         Intent intent = getIntent();
         username = intent.getStringExtra("username");
-
-        TextView usernameLbl = findViewById(R.id.friendListUsername);
-        usernameLbl.setText(username);
         doGetFriends();
     }
 
@@ -54,8 +51,8 @@ public class FriendList extends AppCompatActivity {
 
     public void doInteract(String name){
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-        alertDialog.setTitle("Dialog Button");
-        alertDialog.setMessage("This is a three-button dialog!");
+        alertDialog.setTitle("Friend Options");
+        alertDialog.setMessage("Would you like to remove "+name+" as a friend?");
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Remove Friend", new DialogInterface.OnClickListener() {
 
             public void onClick(DialogInterface dialog, int id) {
@@ -79,10 +76,11 @@ public class FriendList extends AppCompatActivity {
             @Override
             public void processResponse(String response) {
                 Toast.makeText(FriendList.this, response, Toast.LENGTH_LONG).show();
+                friendLayout.removeAllViews();
+                doGetFriends();
             }
         });
-        friendLayout.removeAllViews();
-        doGetFriends();
+
     }
 
 
